@@ -10,6 +10,11 @@ import datetime
 import google.generativeai as genai
 import os
 
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
+
 def do_analysis(name, beat_timings, spo2_values, bpm_values):
   # name = "Sankar"
   # date = datetime.datetime.now().strftime("%Y-%m-%d")
@@ -292,7 +297,7 @@ def generate_report(name, result_string):
 
   """ + f"Name:{name} \nDate:{date} \nData:{result_string}" + """\nEND DATA INPUT.
   Please generate ONLY the JSON object as described, based on the data that will be provided in the 'BEGIN DATA INPUT' section. Ensure the JSON is valid."""
-  key = os.getenv("API_KEY")
+  key = os.environ.get("API_KEY")
   genai.configure(api_key=key)
   model = genai.GenerativeModel(model_name = "gemini-2.0-flash")
   response = model.generate_content([prompt])
