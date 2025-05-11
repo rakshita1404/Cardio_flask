@@ -4,7 +4,12 @@ from firebase_admin import credentials
 from firebase_admin import db
 import json
 
-service_account_json_string = os.getenv('FIREBASE_CREDENTIALS_JSON')
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
+
+service_account_json_string = os.environ.get('FIREBASE_CREDENTIALS_JSON')
 service_account_info = json.loads(service_account_json_string)
 DATABASE_URL = "https://cardio-e9bda-default-rtdb.asia-southeast1.firebasedatabase.app/"  # <--- UPDATE THIS
 
