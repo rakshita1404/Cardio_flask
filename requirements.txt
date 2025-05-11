@@ -8,3 +8,4 @@ scipy
 nolds
 google.generativeai
 reportlab
+python-dotenv
