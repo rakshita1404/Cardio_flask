@@ -9,9 +9,7 @@ from dotenv import load_dotenv
 # Load environment variables from .env file
 load_dotenv()
 
-service_account_json_string = os.environ.get('creds')
-print("service-----",service_account_json_string)
-service_account_info = json.loads(service_account_json_string)
+service_account_info = "/etc/secrets/creds.json"
 DATABASE_URL = "https://cardio-e9bda-default-rtdb.asia-southeast1.firebasedatabase.app/"  # <--- UPDATE THIS
 
 # Global variable to track initialization
