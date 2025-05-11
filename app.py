@@ -5,12 +5,22 @@ from flask_cors import CORS
 from firebase import get_health_data_from_firebase
 from analysis import do_analysis
 from pdf import generate_report
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
 
 app = Flask(__name__)
 CORS(app)
+
+@app.route('/', methods=['GET'])
+def home():
+    return make_response(jsonify({"Server Status": "Healthy and running...", "Connected to Jarvis": True}), 200)
+
 @app.route('/report/<int:idx>', methods=['GET'])
 def process_request(idx):
     data = get_health_data_from_firebase(idx)
+    print(data)
     name = data['name']
     heart_bpm = data['heartBPM']
     spo2 = data['Spo2']
@@ -49,4 +59,4 @@ def process_request(idx):
 if __name__ == '__main__':
     if not os.path.exists("reports"):
         os.makedirs("reports")
-    app.run(host="0.0.0.0",debug=True, port=5000)
+    app.run(host="0.0.0.0",debug=True,port="5432")
